@@ -3,6 +3,19 @@ package stacksAndQueues;
 /**
  * Created by Joseph on 9/13/2017.
  */
+// Queue is FIFO (First-in first-out) like a ticket line
+
+// add(item): Add to the end of list
+// remove(): Remove first item in the list
+// peek(): Return first item
+// isEmpty(): Checks if queue is empty
+
+// Queue can also be implemented with a linked list.
+// They are the essentially the same thing if:
+//   Items are added and removed from opposite sides
+
+// Queues are used in BFS b/c we can process nodes in the order which they are viewed. Each time
+// we process a node, we add its adjacent nodes to the back of the queue
 
 import java.util.NoSuchElementException;
 

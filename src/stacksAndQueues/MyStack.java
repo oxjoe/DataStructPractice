@@ -13,7 +13,7 @@ package stacksAndQueues;
 
 import java.util.EmptyStackException;
 
-// A stack can also be implemented using a LinkedList, if items were added and removed from the
+// A stack (and queues) can also be implemented using a LinkedList, if items were added and removed from the
 // same side
 
 // Copied from CTCI website

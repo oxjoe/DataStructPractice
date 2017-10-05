@@ -13,6 +13,7 @@ package trees;
 
 // Depth-First Search (DFS): Go deep from selected node (root or other)
 //   - Mostly used to visit every node in the graph
+//  In-order, Pre-order, and Post-order traversals are Depth-First traversals
 // Breadth-First Search (BFS): Go wide from selected node (root or other)
 //   - Mostly used to find shortest or any pth between two nodes
 
@@ -45,6 +46,8 @@ class Node {
   }
 }
 
+// Whats the difference between Binary Tree and Binary Search Tree?
+// BST has the less than on left and greater then on right requirements
 class BinaryTree {
 
   // Root of Binary Tree
@@ -57,20 +60,99 @@ class BinaryTree {
   // Driver method
   public static void main(String[] args) {
     BinaryTree tree = new BinaryTree();
-    tree.root = new Node(1);
-    tree.root.left = new Node(2);
-    tree.root.right = new Node(3);
-    tree.root.left.left = new Node(4);
-    tree.root.left.right = new Node(5);
 
-    System.out.println("Preorder traversal of binary tree is ");
-    tree.printPreorder(); // 1 2 4 5 3
+    tree.root = insert(tree.root, 50);
+//    insert(tree.root, 30);
+//    insert(tree.root, 20);
+    insert(tree.root, 40);
+    insert(tree.root, 70);
+    insert(tree.root, 60);
+    insert(tree.root, 80);
 
-    System.out.println("\nInorder traversal of binary tree is ");
-    tree.printInorder(); // 4 2 5 1 3
+    tree.printInorder();
+    System.out.println();
+    System.out.println("After delete");
+    delete(tree.root, 50);
+    tree.printInorder();
 
-    System.out.println("\nPostorder traversal of binary tree is ");
-    tree.printPostorder(); // 4 5 2 3 1
+//    System.err.println("CHECK IF MATCH");
+//    System.out.println("In Order (20 30 40 50 60 70 80): ");
+//    tree.printInorder();
+//    System.out.println("\n");
+//    System.out.println("Pre Order (50 30 20 40 70 60 80): ");
+//    tree.printPreorder();
+//    System.out.println("\n");
+//    System.out.println("Post Order (20 40 30 60 80 70 50 ): ");
+//    tree.printPostorder();
+  }
+
+  // takeaway: first 3 cases are basically insert
+//  takeaway: delete has some of insert and insert has some of delete
+  static Node delete(Node root, int key) {
+        /* Base Case: If the tree is empty */
+    if (root == null) {
+      return root;
+    }
+        /* Otherwise, recur down the tree */
+    if (key < root.key) {
+      root.left = delete(root.left, key);
+    } else if (key > root.key) {
+      root.right = delete(root.right, key);
+    }
+
+    // if key is same as root's key, then This is the node
+    // to be deleted
+    else {
+      // node with only one child or no child
+//      if node.left has nothing then return the right b/c its either null or has something and
+// vice versa
+      if (root.left == null) { // this one deletes left
+        return root.right;
+      } else if (root.right == null) {
+        return root.left;
+      }
+// takeaway This part is the node with 2 subtrees
+
+      // node with two children: Get the inorder successor (smallest
+      // in the right subtree)
+      // takeaway set node value as right subtree
+      // takeaway this gets the inorder ancestor and sets it as the current node
+      root.key = minValue(root.right);
+      // Deletes the inorder successor
+      root.right = delete(root.right, root.key);
+    }
+    System.out.println(root.key);
+    return root;
+  }
+
+  static int minValue(Node root) {
+    while (root.left != null) {
+      root = root.left;
+    }
+    return root.key;
+  }
+
+  static Node insert(Node n, int k) {
+    if (n == null) {
+      Node make = new Node(k);
+      return make;
+    } else if (k > n.key) {
+      n.right = insert(n.right, k);
+    } else if (k < n.key) {
+      n.left = insert(n.left, k);
+    }
+    return n;
+  }
+
+  static Node search(Node n, int k) {
+    if (n == null || n.key == k) {
+      return n;
+    }
+    if (k > n.key) {
+      return search(n.right, k);
+    } else {
+      return search(n.left, k);
+    }
   }
 
   // Visits left-right-root, b/c post is after

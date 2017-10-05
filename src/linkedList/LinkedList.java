@@ -17,15 +17,17 @@ class Node {
  * Created by Joseph on 9/17/2017.
  */
 // A simple Java program to introduce a linked list
+//  Takeaway: Remember Node temp = head and temp = temp.next to iterate
 class LinkedList {
 
   Node head;  // head of list
 
+  // CREATE
   static LinkedList createList(int sizeOfLinkedList) {
-    // Create
-    // I dont want to mess with the head b/c its gonna stay the same.
-    // Which is why we wrap the node class inside LinkedList so head will the same otherwise we
-    // won't know which node is the head b/c we could keep manipulating it (instead of using temp)
+    // I don't want to mess with the head b/c its gonna stay the same.
+    // Which is why we wrap the node class inside LinkedList so head will stay the same otherwise we
+    // won't know which node is the head b/c we could keep manipulating it. Since its inside
+    // LinkedList we set temp=head and use temp to navigate
     // Takeaway: Node temp = head, Node makeNode = new Node(i)
     LinkedList llist = new LinkedList();
     llist.head = new Node(0);
@@ -39,11 +41,13 @@ class LinkedList {
     return llist;
   }
 
-
   public static void main(String[] args) {
     int sizeOfLinkedList = 6;
     LinkedList llist = createList(sizeOfLinkedList);
 
+    llist.printList();
+
+    System.out.println("full list next to me");
     Node temp = llist.head;
     Node insertMid = new Node(111);
 
@@ -61,7 +65,7 @@ class LinkedList {
     // Delete Head
 //    llist.head = llist.head.next;
 
-//    Delete Middle - remove 2
+//    Delete Middle (remove 2)
     int toBeDelete = 2;
     if (llist.head.key == toBeDelete) {
       llist.head = llist.head.next;
